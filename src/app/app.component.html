@@ -1,0 +1,71 @@
+<div class="app-shell">
+  <header class="topbar">
+    <h1>Character AI Companion</h1>
+    <button class="icon-btn" (click)="toggleMute()" [attr.aria-label]="settings.muted ? 'Unmute' : 'Mute'">
+      {{ settings.muted ? '🔇' : '🔊' }}
+    </button>
+  </header>
+
+  <section class="panel settings">
+    <h2>Setup</h2>
+    <p>Add your Gemini API key. You can create one in Google AI Studio and paste it here.</p>
+    <label>Gemini API Key
+      <input type="password" [(ngModel)]="settings.apiKey" (ngModelChange)="saveSettings()" placeholder="AIza..." />
+    </label>
+    <label>Discovery Model (character details)
+      <input type="text" [(ngModel)]="settings.discoveryModel" (ngModelChange)="saveSettings()" />
+    </label>
+    <label>Conversation Model
+      <input type="text" [(ngModel)]="settings.conversationModel" (ngModelChange)="saveSettings()" />
+    </label>
+  </section>
+
+  <section class="panel characters">
+    <h2>Add Character</h2>
+    <div class="grid-2">
+      <input [(ngModel)]="customName" placeholder="Character name" />
+      <input [(ngModel)]="customVoice" placeholder="Voice (e.g. Female en-US)" />
+    </div>
+    <textarea [(ngModel)]="customPersonality" rows="2" placeholder="Personality"></textarea>
+    <button (click)="addCustomCharacter()">Add Custom Character</button>
+
+    <div class="divider"></div>
+
+    <h3>Find Famous Character</h3>
+    <div class="grid-2">
+      <input [(ngModel)]="famousName" placeholder="e.g. Sherlock Holmes" />
+      <button (click)="addFamousCharacter()" [disabled]="busy">Find & Add</button>
+    </div>
+
+    <ul class="character-list">
+      <li *ngFor="let c of characters" [class.active]="c.id === selectedCharacterId">
+        <div (click)="selectedCharacterId = c.id">
+          <strong>{{ c.name }}</strong>
+          <p>{{ c.voice }} · {{ c.personality }}</p>
+        </div>
+        <button *ngIf="c.id !== 'default-assistant'" (click)="removeCharacter(c.id)">Remove</button>
+      </li>
+    </ul>
+  </section>
+
+  <section class="panel chat">
+    <h2>Chat as {{ activeCharacter.name }}</h2>
+    <div class="messages">
+      <article
+        *ngFor="let msg of messages.filter(m => m.characterId === activeCharacter.id)"
+        [class.user]="msg.role === 'user'"
+        [class.assistant]="msg.role === 'assistant'"
+      >
+        <span>{{ msg.role === 'user' ? 'You' : activeCharacter.name }}</span>
+        <p>{{ msg.text }}</p>
+      </article>
+      <div #scrollAnchor></div>
+    </div>
+
+    <div class="composer">
+      <textarea [(ngModel)]="userInput" rows="2" placeholder="Type message..."></textarea>
+      <button (click)="send()" [disabled]="busy">{{ busy ? 'Thinking...' : 'Send' }}</button>
+    </div>
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </section>
+</div>

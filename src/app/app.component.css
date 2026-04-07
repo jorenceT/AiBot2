@@ -1,0 +1,148 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f3f5fb;
+  color: #1d2433;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.app-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 12px;
+  display: grid;
+  gap: 12px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.panel {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 4px 20px rgba(22, 35, 63, 0.06);
+}
+
+label, input, textarea, button {
+  font: inherit;
+}
+
+input, textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d9e0ef;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 4px;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  background: #5c6bff;
+  color: white;
+  padding: 10px 12px;
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  font-size: 20px;
+  padding: 0;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.character-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: grid;
+  gap: 8px;
+}
+
+.character-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid #e3e8f5;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+.character-list li.active {
+  border-color: #5c6bff;
+  background: #f6f7ff;
+}
+
+.character-list p {
+  margin: 3px 0 0;
+  color: #5b647a;
+  font-size: 13px;
+}
+
+.messages {
+  max-height: 40vh;
+  overflow: auto;
+  display: grid;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+article {
+  border-radius: 10px;
+  padding: 8px 10px;
+  max-width: 90%;
+}
+
+article.user {
+  background: #eaf1ff;
+  justify-self: end;
+}
+
+article.assistant {
+  background: #f3f4f8;
+}
+
+article span {
+  display: block;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+article p {
+  margin: 4px 0 0;
+  white-space: pre-wrap;
+}
+
+.divider {
+  height: 1px;
+  background: #e7ebf7;
+  margin: 12px 0;
+}
+
+.error {
+  color: #ba1f31;
+  margin-top: 6px;
+}
+
+@media (max-width: 700px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .app-shell {
+    padding: 8px;
+  }
+}
